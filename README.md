@@ -82,7 +82,7 @@ apt update -y && yes | apt upgrade && pkg install -y bash wget mpv && wget -O - 
 ```js
 //LÍNEAS A MODIFICAR
 205 --> "git clone https://github.com/[user]/[repositorio].git"
-//Ejemplo: git clone https://github.com/GataNina-Li/GataBot-MD.git
+//Ejemplo: git clone https://github.com/Antonigaming/GataBot-MD.git
 
 209 --> "cd [repositorio]"
 //Ejemplo: cd GataBot-MD
@@ -99,7 +99,7 @@ termux-setup-storage
 apt update && apt upgrade && pkg install -y git nodejs ffmpeg imagemagick yarn
 ```
 ```bash
-git clone https://github.com/Antonigaming/GotaBot-MD && cd GotaBot-MD
+git clone https://github.com/Antonigaming/GataBot-MD && cd GataBot-MD
 ```
 ```bash
 yarn install && npm install
