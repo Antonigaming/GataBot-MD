@@ -1,0 +1,47 @@
+{
+"info": {
+"accounts": {
+"youTube": "https://",
+"instagram": "",
+"gatabot_md": "https://github.com/Antonigaming/GataBot-MD",
+"gatabotlite_md": "https://github.com/GataNina-Li/GataBotLite-MD",
+"facebook": "/",
+"tiktok": "https://www.tiktok.com/@gata_dios",
+"threads": "",
+"paypal": "https://paypal.me/OficialGD",
+"github": "https://github.com/Antonigaming",
+"mail": "centergatabot@gmail.com",
+"all": "https://www.atom.bio/GataBot"
+},
+"channels": {
+"channel1": "https://",
+"channel2": "",
+"channel3": "",
+"channel4": ""
+},
+"groups": {
+"group1": "",
+"group2": "",
+"group3": "",
+"group4": "",
+"group5": "",
+"group6": "https://t.me/supergatabot"
+},
+"collaboration": {
+"group1": "",
+"group2": "",
+"group3": "",
+"group4": ""
+},
+"sponsors": {
+"boxmine": "https://boxmineworld.com",
+"SkyUltraPlus": "https://skyultraplus.com",
+"vortexus": "https://vortexuscloud.com"
+},
+"others": {
+"assistance_num": "https://wa.me/",
+"yt_vid": "",
+"group_support": ""
+}
+}
+}
