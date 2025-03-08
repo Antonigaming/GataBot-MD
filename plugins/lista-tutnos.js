@@ -1,5 +1,3 @@
-
-import { xpRange } from '../lib/levelling.js';
 import PhoneNumber from 'awesome-phonenumber';
 import { promises } from 'fs';
 import { join } from 'path';
@@ -8,6 +6,7 @@ const MAX_PARTICIPANTS = 40;
 
 let handler = async (m, { conn }) => {
     const currentDate = new Date().toLocaleDateString();
+    const currentTime = new Date().toLocaleTimeString();
 
     // Inicializar la lista de participantes en la base de datos si no existe
     if (!global.db.data.participants) {
@@ -22,6 +21,17 @@ let handler = async (m, { conn }) => {
         return conn.reply(m.chat, `🚫 La lista está llena. Puedes apuntarte para la lista de mañana.`, m);
     }
 
+    // Pedir al usuario que introduzca un número
+    await conn.reply(m.chat, `Por favor, proporciona un número para agregar a la lista:`, m);
+
+    // Esperar la respuesta del usuario
+    const numberResponse = await conn.waitForMessage(m.sender);
+
+    // Validar el número
+    if (!numberResponse.body || isNaN(numberResponse.body) || participants.some(participant => participant.number === numberResponse.body)) {
+        return conn.reply(m.chat, `❌ Número no válido o ya está en la lista. No se pudo agregar.`, m);
+    }
+
     // Pedir al usuario que introduzca un nombre
     await conn.reply(m.chat, `Por favor, proporciona un nombre para agregar a la lista:`, m);
 
@@ -33,15 +43,13 @@ let handler = async (m, { conn }) => {
         return conn.reply(m.chat, `❌ Nombre no válido. No se pudo agregar a la lista.`, m);
     }
 
-    // Verificar si el usuario ya está en la lista
-    if (participants.some(participant => participant.id === m.sender)) {
-        return conn.reply(m.chat, `❌ Ya estás en la lista como ${participants.find(participant => participant.id === m.sender).name}.`, m);
-    }
-
     // Agregar el participante a la lista
     participants.push({
-        id: m.sender,        // ID del usuario
-        name: nameResponse.body // Nombre proporcionado por el usuario
+        id: m.sender,         // ID del usuario
+        number: numberResponse.body, // Número proporcionado por el usuario
+        name: nameResponse.body, // Nombre proporcionado por el usuario
+        date: currentDate,    // Fecha
+        time: currentTime     // Hora
     });
 
     // Guardar la lista actualizada en la base de datos
@@ -52,42 +60,28 @@ let handler = async (m, { conn }) => {
 };
 
 // Comando para agregar participantes
-handler.command = /^agregar lista$/i;
+handler.command = /^AL$/i;
 
 export default handler;
 
-// Código adicional para gestión de nivel de experiencia y otra información
-let additionalHandler = async (m, { conn }) => {
-    let { exp, limit, level, role } = global.db.data.users[m.sender];
-    let { min, xp, max } = xpRange(level, global.multiplier);
+// Código para mostrar la lista de participantes con espacios vacíos
+let listHandler = async (m, { conn }) => {
+    const currentDate = new Date().toLocaleDateString();
+    let participants = global.db.data.participants[currentDate] || [];
 
-    let d = new Date();
-    let locale = 'es';
-    let weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5];
-    let week = d.toLocaleDateString(locale, { weekday: 'long' });
-    let date = d.toLocaleDateString(locale, {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-    });
-    let dateIslamic = Intl.DateTimeFormat(locale + '-TN-u-ca-islamic', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-    }).format(d);
-    let time = d.toLocaleTimeString(locale, {
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-    });
+    let message = 'Lista de participantes:\n\n';
+    for (let i = 0; i < MAX_PARTICIPANTS; i++) {
+        if (participants[i]) {
+            message += `${i + 1}. ${participants[i].number} - ${participants[i].name} (Agregado el ${participants[i].date} a las ${participants[i].time})\n`;
+        } else {
+            message += `${i + 1}. [vacio ❌]\n`;
+        }
+    }
 
-    let { money } = global.db.data.users[m.sender];
-
-    // Aquí puedes añadir más lógica para responder o procesar información del usuario
+    await conn.reply(m.chat, message, m);
 };
 
-// Comando adicional si es necesario
-additionalHandler.command = /^apuntar$/i;
+// Comando para mostrar la lista
+listHandler.command = /^ML$/i;
 
-export default additionalHandler;
-                     
+export { listHandler };
