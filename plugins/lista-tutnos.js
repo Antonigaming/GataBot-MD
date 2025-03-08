@@ -1,70 +1,27 @@
 import PhoneNumber from 'awesome-phonenumber';
 import { promises } from 'fs';
 import { join } from 'path';
+import moment from 'moment-timezone';
 
+// Constantes
 const MAX_PARTICIPANTS = 40;
+const botOwner = '18098781279'; // Reemplaza esto con tu número de teléfono
 
-let handler = async (m, { conn }) => {
-    const currentDate = new Date().toLocaleDateString();
-    const currentTime = new Date().toLocaleTimeString();
-
-    // Inicializar la lista de participantes en la base de datos si no existe
+// Inicializa la base de datos de participantes si no existe
+const initializeParticipantsDB = () => {
     if (!global.db.data.participants) {
         global.db.data.participants = {};
     }
-
-    // Obtener la lista de participantes para el día actual
-    let participants = global.db.data.participants[currentDate] || [];
-
-    // Comprobar si la lista está llena
-    if (participants.length >= MAX_PARTICIPANTS) {
-        return conn.reply(m.chat, `🚫 La lista está llena. Puedes apuntarte para la lista de mañana.`, m);
-    }
-
-    // Obtener el número de WhatsApp del usuario
-    const userNumber = m.sender.split('@')[0];
-
-    // Verificar si el usuario ya está en la lista
-    if (participants.some(participant => participant.number === userNumber)) {
-        return conn.reply(m.chat, `❌ Ya estás en la lista.`, m);
-    }
-
-    // Agregar el participante a la lista
-    participants.push({
-        id: m.sender,         // ID del usuario
-        number: userNumber,   // Número de WhatsApp del usuario
-        name: `Usuario ${userNumber}`, // Nombre proporcionado por el usuario
-        date: currentDate,    // Fecha
-        time: currentTime     // Hora
-    });
-
-    // Guardar la lista actualizada en la base de datos
-    global.db.data.participants[currentDate] = participants;
-
-    // Responder con un mensaje de confirmación y la lista de participantes
-    let message = `✅ Has sido agregado a la lista como Usuario ${userNumber}.\n\nLista de participantes:\n\n`;
-    for (let i = 0; i < MAX_PARTICIPANTS; i++) {
-        if (participants[i]) {
-            message += `${i + 1}. ${participants[i].number} (Agregado el ${participants[i].date} a las ${participants[i].time})\n`;
-        } else {
-            message += `${i + 1}. [vacio ❌]\n`;
-        }
-    }
-
-    await conn.reply(m.chat, message, m);
 };
 
-// Comando para agregar participantes
-handler.command = /^al$/i;
+// Obtiene la lista de participantes para el día actual
+const getParticipantsList = (currentDate) => {
+    return global.db.data.participants[currentDate] || [];
+};
 
-export default handler;
-
-// Código para mostrar la lista de participantes completa
-let showListHandler = async (m, { conn }) => {
-    const currentDate = new Date().toLocaleDateString();
-    let participants = global.db.data.participants[currentDate] || [];
-
-    let message = 'Lista de participantes:\n\n';
+// Formatea la lista de participantes para mostrarla
+const formatParticipantsList = (participants) => {
+    let message = '';
     for (let i = 0; i < MAX_PARTICIPANTS; i++) {
         if (participants[i]) {
             message += `${i + 1}. ${participants[i].number} - ${participants[i].name} (Agregado el ${participants[i].date} a las ${participants[i].time})\n`;
@@ -72,31 +29,130 @@ let showListHandler = async (m, { conn }) => {
             message += `${i + 1}. [vacio ❌]\n`;
         }
     }
-
-    await conn.reply(m.chat, message, m);
+    return message;
 };
 
-// Comando para mostrar la lista
-showListHandler.command = /^moslist$/i;
+// Maneja el comando para agregar participantes
+const handleAddParticipant = async (m, conn) => {
+    const currentDate = new Date().toLocaleDateString();
+    const currentTime = new Date().toLocaleTimeString();
 
-export { showListHandler };
+    initializeParticipantsDB();
 
-// Código para borrar la lista de participantes, solo puede ser ejecutado por el dueño del bot
-let clearListHandler = async (m, { conn }) => {
-    const botOwner = '18098781279'; // Reemplaza esto con tu número de teléfono
+    let participants = getParticipantsList(currentDate);
 
-    // Verificar si el comando fue ejecutado por el dueño del bot
-    if (m.sender.split('@')[0] !== botOwner) {
-        return conn.reply(m.chat, `❌ No tienes permiso para ejecutar este comando.`, m);
+    if (participants.length >= MAX_PARTICIPANTS) {
+        return conn.reply(m.chat, `🚫 La lista está llena. Puedes apuntarte para la lista de mañana.`, m);
     }
 
-    // Reinicializar la lista de participantes
+    const userNumber = m.sender.split('@')[0];
+
+    if (participants.some(participant => participant.number === userNumber)) {
+        return conn.reply(m.chat, `❌ Ya estás en la lista.`, m);
+    }
+
+    participants.push({
+        id: m.sender,
+        number: userNumber,
+        name: `Usuario ${userNumber}`,
+        date: currentDate,
+        time: currentTime
+    });
+
+    global.db.data.participants[currentDate] = participants;
+
+    await conn.reply(m.chat, `✅ Has sido agregado a la lista como Usuario ${userNumber}.\n\nLista de participantes:\n\n${formatParticipantsList(participants)}`, m);
+};
+
+// Maneja el comando para mostrar la lista de participantes
+const handleShowList = async (m, conn) => {
+    const currentDate = new Date().toLocaleDateString();
+    let participants = getParticipantsList(currentDate);
+
+    await conn.reply(m.chat, `Lista de participantes:\n\n${formatParticipantsList(participants)}`, m);
+};
+
+// Maneja el comando para borrar la lista de participantes
+const handleClearList = async (m, conn) => {
+    // Verificar si el comando fue ejecutado por el dueño del bot
+    if (m.sender.split('@')[0] !== botOwner) {
+        return conn.reply(m.chat, `❌ No tienes permiso para ejecutar este comando. Solo el dueño del bot puede hacerlo.`, m);
+    }
+
     global.db.data.participants = {};
 
     await conn.reply(m.chat, `✅ La lista ha sido borrada y reinicializada.`, m);
 };
 
+// Muestra el menú de opciones
+const showMenu = async (m, conn, usedPrefix) => {
+    const lugarFecha = moment().tz('America/Lima');
+    const formatoFecha = {
+        weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    };
+    lugarFecha.locale('es', formatoFecha);
+    const horarioFecha = lugarFecha.format('dddd, DD [de] MMMM [del] YYYY || HH:mm A').replace(/^\w/, (c) => c.toUpperCase());
+
+    const menu = `⎔ \`\`\`${horarioFecha}\`\`\`
+⎔ *Opciones de Lista de Turnos*
+⎔ *Selecciona una opción:*
+⎔ *Ver Lista* ➺ ${usedPrefix}moslist
+⎔ *Borrar Lista* ➺ ${usedPrefix}borrarlista (Solo el dueño del bot)
+`.trim();
+
+    const buttonParamsJson = JSON.stringify({
+        title: "Opciones de Lista de Turnos",
+        description: "Seleccione una opción",
+        sections: [
+            {
+                title: "🔖 Opciones", highlight_label: "Popular",
+                rows: [
+                    { header: "📋 Ver Lista", title: "🔓 Para: Todos", description: "Ver la lista de participantes", id: usedPrefix + "moslist" },
+                    { header: "🗑️ Borrar Lista", title: "🔒 Para: Dueño", description: "Borrar la lista de participantes", id: usedPrefix + "borrarlista" }
+                ]
+            }
+        ]
+    });
+
+    const interactiveMessage = {
+        body: { text: menu },
+        footer: { text: `Si algo no funciona utilice el comando *${usedPrefix}menu2*` },
+        header: { title: `⭐ *------- MENÚ -------* ⭐\nOpciones de Lista de Turnos`, subtitle: "Seleccione una opción", hasMediaAttachment: false },
+        nativeFlowMessage: { buttons: [{ 
+            name: "single_select",
+            buttonParamsJson
+        }]
+    }};
+
+    const message = { messageContextInfo: { deviceListMetadata: {}, deviceListMetadataVersion: 2 }, interactiveMessage };
+    await conn.relayMessage(m.chat, { viewOnceMessage: { message } }, {});
+};
+
+// Comando para agregar participantes
+let handler = async (m, { conn, usedPrefix }) => {
+    if (m.text.includes('ml')) {
+        await showMenu(m, conn, usedPrefix);
+    } else {
+        await handleAddParticipant(m, conn);
+    }
+};
+handler.command = /^(al|ml)$/i;
+
+export default handler;
+
+// Comando para mostrar la lista
+let showListHandler = async (m, { conn }) => {
+    await handleShowList(m, conn);
+};
+showListHandler.command = /^moslist$/i;
+
+export { showListHandler };
+
 // Comando para borrar la lista
+let clearListHandler = async (m, { conn }) => {
+    await handleClearList(m, conn);
+};
 clearListHandler.command = /^borrarlista$/i;
 
 export { clearListHandler };
