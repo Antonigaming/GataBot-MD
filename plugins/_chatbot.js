@@ -163,7 +163,7 @@ console.error(error);
 
 async function perplexityIA(q, logic) {
 try {
-let response = await perplexity.chat([{ role: 'system', content: logic || syms1 }, { role: 'user', content: q }], 'sonar-pro');
+let response = await perplexity([{ role: 'system', content: logic || syms1 }, { role: 'user', content: q }]);
 if (response.status) {
 return response.result.response;
 } else {
@@ -237,12 +237,4 @@ conn.reply(m.chat, `*╭┅〘 ⚠️ 𝗢𝗯𝗲𝗱𝗲𝗰𝗲 𝗹𝗮𝘀 
 ➽❌ 𝐏𝐫𝐨𝐡𝐢𝐛𝐢𝐝𝐨 𝐒𝐩𝐚𝐦 𝐚𝐥 𝐁𝐨𝐭
 ➽❌ 𝐍𝐨 𝐚𝐠𝐫𝐞𝐠𝐚𝐫 𝐚𝐥 𝐁𝐨𝐭
 ➽❌ 𝐑𝐞𝐬𝐩𝐞𝐭𝐚 𝐥𝐨𝐬 𝐭𝐞𝐫𝐦𝐢𝐧𝐨𝐬 𝐲 𝐜𝐨𝐧𝐝𝐢𝐜𝐢𝐨𝐧𝐞𝐬
-*╰═┅ৡৢ͜͡✦═╡ ৎ୭࠭͢𝔄𝔨𝔲𝔪𝔞-𝔅𝔬𝔱-𝔐𝔇𓆪͟͞  🐉 ╞═┅ৡৢ͜͡✦═╯*`, fkontak, m)
-}
-return !0 
-}
-//export default handler
-
-function pickRandom(list) {
-  return list[Math.floor(Math.random() * list.length)];
-}
+*╰═┅ৡৢ͜͡✦═╡ ৎ୭࠭͢𝔄𝔨𝔲𝔪𝔞-𝔅𝔬𝔱-𝔐𝔇𓆪͟͞  🐉 ╞═┅ৡৢ͜͡✦═╯*`, fkont
