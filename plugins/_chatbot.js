@@ -3,7 +3,7 @@
 import '../plugins/_content.js'
 //let handler = m => m 
 //handler.all = async function (m) {
-import { perplexity } from '../lib/chatgpt.js'
+import { perplexity } from '../plugins/chatgpt.js'
 const antiSpam = new Map();
 export async function before(m, { conn }) {
 if (m.id.startsWith('NJX-') || m.id.startsWith('BAE5') && m.id.length === 16 || m.id.startsWith('3EB0') && m.id.length === 12 || m.id.startsWith('3EB0') && (m.id.length === 20 || m.id.length === 22) || m.id.startsWith('B24E') && m.id.length === 20 || m.id.startsWith('FizzxyTheGreat-')) return
@@ -19,7 +19,7 @@ let txt = `*¿Tu Nokia es muy lento y necesitas que tu bot esté activo 24/7?* �
 
 ¡Tenemos la solución perfecta para ti! 🎉 Mantén tu bot funcionando sin interrupciones con nuestros servidores, Ofrecemos servidores gratuitos y de pago a precios súper accesibles, al alcance de todos. 💸 
 
-🖥️ *Totalmente compatible con GataBot:* Disfruta al máximo de su potencial en nuestros servidores de alto rendimiento, asegurando una experiencia fluida y de alta calidad. El staff de GataBot y CorinPlus Host se encarga de que disfrutes de todas sus funciones al máximo. 😺✨
+🖥️ *Totalmente compatible con AkumaBot:* Disfruta al máximo de su potencial en nuestros servidores de alto rendimiento, asegurando una experiencia fluida y de alta calidad. El staff de AkumaBot y CorinPlus Host se encarga de que disfrutes de todas sus funciones al máximo. 😺✨
 
 🟢 \`\`\`Información del Host\`\`\`
 
@@ -33,19 +33,19 @@ https://dash.skyultraplus.com
 https://panel.skyultraplus.com
 
 💥 *Comunidad de WhatsApp:*
-https://chat.whatsapp.com/KGPhTIfgOzZCMNqoc3R7OW
+Robada :(
 
 *🟣 Discord:*
-https://discord.gg/zvKgtc2RBc
+https://discord.gg/foHqNlr
 
 🧡 *Canal de WhatsApp:*
-https://whatsapp.com/channel/0029VakUvreFHWpyWUr4Jr0g
+https://whatsapp.com/channel/0029VawDxVnLSmbbtn80cI2F
 
 🗣📲 *Contacto:*
-• wa.me/5214531287294
-• wa.me/15167096032
-• wa.me/573147616444
-• https://www.facebook.com/elrebelde21
+• wa.me/18098781279
+• wa.me/18292588251
+• wa.me/18099072579
+• https://www.facebook.com/Dasher
 
 No esperes más y lleva tu bot al siguiente nivel con nuestro servicio de alojamiento. ¡Es fácil, rápido y económico! 💪🚀` 
 
@@ -53,7 +53,7 @@ if (/^infohost$/i.test(m.text)) {
  await conn.sendMessage(m.chat, { text: txt,
 contextInfo:{
 forwardedNewsletterMessageInfo: { 
-newsletterJid: '120363301598733462@newsletter', 
+newsletterJid: '@newsletter', 
 serverMessageId: '', 
 newsletterName: 'Sky-Ultra-Plus ☁️' }, 
 forwardingScore: 9999999,
@@ -61,7 +61,7 @@ isForwarded: true,
 "externalAdReply": {
 "showAdAttribution": true,
 "containsAutoReply": true,
-title: `🤖 𝐒𝐊𝐘𝐏𝐋𝐔𝐒-𝐇𝐎𝐒𝐓 🤖`,
+title: `🤖 𝐇𝐎𝐒𝐓 🤖`,
 body: `¡El plus que necesitas!_`,
 "previewType": "PHOTO",
 thumbnailUrl: 'https://cloud.dorratz.com/files/0e620e089bf149565c789c350f4f3347.jpg', 
@@ -74,8 +74,8 @@ await conn.reply(m.chat, bot, m, fakeChannel)
 await conn.sendPresenceUpdate('recording', m.chat)
 await conn.sendFile(m.chat, vn, 'bot.mp3', null, m, true, { type: 'audioMessage', ptt: true, sendEphemeral: true, quoted: m })   
 } else if (/^simi$/i.test(m.text)) {
-await conn.reply(m.chat, `${lenguajeGB['smsAvisoMG']()}𝙀𝙎𝘾𝙍𝙄𝘽𝘼 𝙐𝙉 𝙏𝙀𝙓𝙏𝙊 𝙋𝘼𝙍𝘼 𝙃𝘼𝘽𝙇𝘼𝙍 𝘾𝙊𝙉𝙈𝙄𝙂𝙊\n\n𝙀𝙅𝙀𝙈𝙋𝙇𝙊\n*Hola Gata Bot*\n\n𝙒𝙍𝙄𝙏𝙀 𝘼 𝙏𝙀𝙓𝙏 𝙏𝙊 𝙏𝘼𝙇𝙆 𝙏𝙊 𝙈𝙀\n\n𝙀𝙓𝘼𝙈𝙋𝙇𝙀\n*Hello Gata Bot.*`, m);
-} else if (m.text.includes(`bot`) || m.text.includes(`Bot`) || m.text.includes(`simsimi`) || m.text.includes(`simi`) || m.text.includes(`gatabot`) || m.text.includes(`alexa`)) {   
+await conn.reply(m.chat, `${lenguajeGB['smsAvisoMG']()}𝙀𝙎𝘾𝙍𝙄𝘽𝘼 𝙐𝙉 𝙏𝙀𝙓𝙏𝙊 𝙋𝘼𝙍𝘼 𝙃𝘼𝘽𝙇𝘼𝙍 𝘾𝙊𝙉𝙈𝙄𝙂𝙊\n\n𝙀𝙅𝙀𝙈𝙋𝙇𝙊\n*Hola Akuma Bot*\n\n𝙒𝙍𝙄𝙏𝙀 𝘼 𝙏𝙀𝙓𝙏 𝙏𝙊 𝙏𝘼𝙇𝙆 𝙏𝙊 𝙈𝙀\n\n𝙀𝙓𝘼𝙈𝙋𝙇𝙀\n*Hello Akuma Bot.*`, m);
+} else if (m.text.includes(`bot`) || m.text.includes(`Bot`) || m.text.includes(`simsimi`) || m.text.includes(`simi`) || m.text.includes(`AkumaBot`) || m.text.includes(`alexa`)) {   
 //if (/^(bot|Bot|simi|simsimi|alexa)\s.+$/i.test(m.text)) {
 if (m.text.includes('jadibot') || m.text.includes('bots') || m.text.includes('serbot') || m.text.includes('instalarbot') || m.text.includes('infobot')) return;
 const lastMessageTime = antiSpam.get(m.sender) || 0;
@@ -85,7 +85,7 @@ if (currentTime - lastMessageTime < 5000) throw !0;
 if (/^Quiero un bot|como obtengo un bot?|Quiero un bot?|quiero un bot|solicitud|solicitó bot|solicito bot|Necesito un bot|necesito un bot$/i.test(m.text) ) {
 return conn.reply(m.chat,  `\`⚡¿Quieres un bot para tu grupo?\`
 
-*🐈 Tiene varias opciones. Puedes instalarlo tú mismo siguiendo los pasos de instalación:*
+*🐉 Tiene varias opciones. Puedes instalarlo tú mismo siguiendo los pasos de instalación:*
 * #instalarbot
 
 *🧡 Puede hacerte un sub bot mandando el siguiente comando:*
@@ -100,25 +100,24 @@ return conn.reply(m.chat,  `\`⚡¿Quieres un bot para tu grupo?\`
 > A través de nuestro PayPal o Mercado Pago.
 
 *❇️PayPal:*
-• https://www.paypal.com/paypalme/OficialGD
+• https://www.paypal.com/paypalme/GeraldinoPenalo
 
 *❇️Mercado pago:*
 
-*• Alias :* OficialGB
-*• CVU :* 0000003100059201491917
+*• Alias :* GeraldinoPenalo
+*• CVU :* Próximamente...
 
 \`⏩ Siguiente paso ⏩\`
 
 > Una vez realizado el pago, puedes enviar un comprobante de envío del dinero (captura de pantalla) para que pueda agregar el bot a tu grupo:
 
-• https://chat.whatsapp.com/FDRfhecUGrCEQswkg8FUYz
 • ${ig}
-• https://www.facebook.com/elrebelde21
+• https://www.facebook.com/Dasher
 
 \`⚡ ¿El bot estará activo 24/7?\`
 _*Sí, nuestro bot está alojado en un servidor de pago para mantenerlo activo 24/7 (por eso también solicitamos donaciones para mantenerlo en funcionamiento) 💞*_
 
-> *𝙂𝙧𝙖𝙘𝙞𝙖𝙨 𝙥𝙤𝙧 𝙨𝙪𝙨 𝙥𝙧𝙚𝙛𝙚𝙧𝙚𝙣𝙘𝙞𝙖𝙨 𝙚𝙣 ${gt} 🐈💞*`, fkontak, {contextInfo: {externalAdReply :{ mediaUrl: null, mediaType: 1, description: null, title: `Hola ${name} 👋`, body: wm, previewType: 0, thumbnail: gataImg, sourceUrl: accountsgb }}})
+> *𝙂𝙧𝙖𝙘𝙞𝙖𝙨 𝙥𝙤𝙧 𝙨𝙪𝙨 𝙥𝙧𝙚𝙛𝙚𝙧𝙚𝙣𝙘𝙞𝙖𝙨 𝙚𝙣 ${gt} 🐉💞*`, fkontak, {contextInfo: {externalAdReply :{ mediaUrl: null, mediaType: 1, description: null, title: `Hola ${name} 👋`, body: wm, previewType: 0, thumbnail: AkumaImg, sourceUrl: accountsgb }}})
 }
 if (/^¿Qué es un Bot?|¿Qué es Bot?|Qué es Bot|qué es Bot|QUÉ ES UN BOT|¿QUÉ ES UN BOT?|¿qué es un Bot?|qué es un Bot|que es un Bot|Qué es un Bot?|Que es un Bot? $/i.test(m.text) ) {
 return conn.reply(m.chat, `\`✨ ¿𝐐𝐮𝐞́ 𝐞𝐬 𝐮𝐧 𝐁𝐨𝐭 𝐝𝐞 𝐖𝐡𝐚𝐭𝐬𝐀𝐩𝐩? ✨\`
@@ -128,18 +127,18 @@ return conn.reply(m.chat, `\`✨ ¿𝐐𝐮𝐞́ 𝐞𝐬 𝐮𝐧 𝐁𝐨𝐭
 🍃 *_Para ver el menú de comandos puedes usar:_*
 #menu
 
-🐈 𝙂𝙖𝙩𝙖 𝘿𝙞𝙤𝙨 🐈`, m)
+ৎ୭࠭͢𝔄𝔨𝔲𝔪𝔞-𝔅𝔬𝔱-𝔐𝔇𓆪͟͞  `, m)
 }  
 try {
 let prefixRegex = new RegExp('^[' + setting.prefix.replace(/[|\\{}()[\]^$+*.\-\^]/g, '\\$&') + ']');
-let hasPrefixWithKeyword = prefixRegex.test(m.text) && (m.text.match(/^[‎z/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.,\\-](bot|Bot|simsimi|simi|alexa|gatabot)/));
-let hasKeywordWithoutPrefix = (m.text.includes('bot') || m.text.includes('Bot') || m.text.includes('simsimi') || m.text.includes('simi') || m.text.includes('gatabot') || m.text.includes('alexa')) && !prefixRegex.test(m.text);
+let hasPrefixWithKeyword = prefixRegex.test(m.text) && (m.text.match(/^[‎z/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.,\\-](bot|Bot|simsimi|simi|alexa|Akumabot)/));
+let hasKeywordWithoutPrefix = (m.text.includes('bot') || m.text.includes('Bot') || m.text.includes('simsimi') || m.text.includes('simi') || m.text.includes('AkumaBot') || m.text.includes('alexa')) && !prefixRegex.test(m.text);
 if (!hasPrefixWithKeyword && !hasKeywordWithoutPrefix) return;
 let query = m.text;
 if (hasPrefixWithKeyword) {
-query = m.text.replace(prefixRegex, '').replace(/(bot|Bot|simsimi|simi|gatabot|alexa)/i, '').trim(); 
+query = m.text.replace(prefixRegex, '').replace(/(bot|Bot|simsimi|simi|Akumabot|alexa)/i, '').trim(); 
 } else if (hasKeywordWithoutPrefix) {
-const keywordRegex = /^(bot|Bot|simsimi|simi|gatabot|alexa)\s+/i;
+const keywordRegex = /^(bot|Bot|simsimi|simi|Akumabot|alexa)\s+/i;
 if (keywordRegex.test(m.text)) {
 query = m.text.replace(keywordRegex, '').trim();
 } else {
@@ -187,7 +186,7 @@ return null;
 }}
 
 let username = `${m.pushName}`;
-let syms1 = `Serás GataBot 🐈, el bot creado por Gata Dios para WhatsApp. Tu misión es entretener, generar risas y también ser útil. Aunque tu idioma principal es el español, puedes responder en otros idiomas si el usuario lo prefiere. tiene este rol que chat divertido con exploit incluido osea los quiere dices es que este rol solo es humor, divertido, no que tome nada real, tu respuesta sera divertida, humor, y usar mucho emojis el tu respuesta.
+let syms1 = `Serás AkumaBot 🐉, el bot creado por Go y Antonio para WhatsApp. Tu misión es entretener, generar risas y también ser útil. Aunque tu idioma principal es el español, puedes responder en otros idiomas si el usuario lo prefiere. tiene este rol que chat divertido con exploit incluido osea los quiere dices es que este rol solo es humor, divertido, no que tome nada real, tu respuesta sera divertida, humor, y usar mucho emojis el tu respuesta.
 
 "general risa el chat por que este rol actúal más como simsimi" Chatbot no chatgpt. 
 
@@ -238,12 +237,12 @@ conn.reply(m.chat, `*╭┅〘 ⚠️ 𝗢𝗯𝗲𝗱𝗲𝗰𝗲 𝗹𝗮𝘀 
 ➽❌ 𝐏𝐫𝐨𝐡𝐢𝐛𝐢𝐝𝐨 𝐒𝐩𝐚𝐦 𝐚𝐥 𝐁𝐨𝐭
 ➽❌ 𝐍𝐨 𝐚𝐠𝐫𝐞𝐠𝐚𝐫 𝐚𝐥 𝐁𝐨𝐭
 ➽❌ 𝐑𝐞𝐬𝐩𝐞𝐭𝐚 𝐥𝐨𝐬 𝐭𝐞𝐫𝐦𝐢𝐧𝐨𝐬 𝐲 𝐜𝐨𝐧𝐝𝐢𝐜𝐢𝐨𝐧𝐞𝐬
-*╰═┅ৡৢ͜͡✦═╡ 𝙂𝙖𝙩𝙖 𝘿𝙞𝙤𝙨 ╞═┅ৡৢ͜͡✦═╯*`, fkontak, m)
+*╰═┅ৡৢ͜͡✦═╡ ৎ୭࠭͢𝔄𝔨𝔲𝔪𝔞-𝔅𝔬𝔱-𝔐𝔇𓆪͟͞  🐉 ╞═┅ৡৢ͜͡✦═╯*`, fkontak, m)
 }
 return !0 
 }
 //export default handler
 
 function pickRandom(list) {
-return list[Math.floor(Math.random() * list.length)]
+  return list[Math.floor(Math.random() * list.length)];
 }
