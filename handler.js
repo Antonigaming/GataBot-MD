@@ -427,8 +427,7 @@ if (!isNumber(user.psepick)) user.psepick = 0
 if (!isNumber(user.ramuan)) user.ramuan = 0
 if (!isNumber(user.ramuancentaurlast)) user.ramuancentaurlast = 0
 if (!isNumber(user.ramuangriffinlast)) user.ramuangriffinlast = 0
-if (!isNumber(user.ramuanherolast)) user.ramuanherolast = 0
-if (!isNumber(user.ramuankucinglast)) user.ramuankucinglast = 0
+if (!isNumber(user.ramuanherolast)) user.ramuankucinglast = 0
 if (!isNumber(user.ramuankudalast)) user.ramuankudalast = 0
 if (!isNumber(user.ramuankyubilast)) user.ramuankyubilast = 0
 if (!isNumber(user.ramuannagalast)) user.ramuannagalast = 0
@@ -1592,7 +1591,7 @@ restrict: lenguajeGB['smsRestrict'](),
 //if (msg) return m.reply(msg)
 	
 let tg = { quoted: m, userJid: conn.user.jid }
-let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: lenguajeGB.smsAvisoAG().slice(0,-2), body: [wm, '😻 𝗦𝘂𝗽𝗲𝗿 ' + gt + ' 😻', '🌟 centergatabot.gmail.com'].getRandom(), thumbnail: gataImg, sourceUrl: accountsgb }}}}, tg)
+let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: lenguajeGB.smsAvisoAG().slice(0,-2), body: [wm, '😻 𝗦𝘂𝗽𝗲𝗿 ' + gt + ' 😻', '🌟 arieldelarosas74@gmail.com'].getRandom(), thumbnail: gataImg, sourceUrl: accountsgb }}}}, tg)
 if (msg) return conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
 }
 
